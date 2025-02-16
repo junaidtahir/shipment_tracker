@@ -176,19 +176,6 @@ if ($tracking_id) {
             <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($tracking_id) ?></li>
         </ol>
     </nav>
-    <!-- //breadcrumbs -->
-    <section>
-        <div class="container">
-
-            <div class="toast float-right" data-autohide="false">
-                <div class="toast-body">
-                    <div class="mr-auto" id="date-part">Current Date: <kbd></kbd></div>
-                    <div id="time-part">Current Time: <kbd></kbd></div>
-                </div>
-            </div>
-        </div>
-        <br><br>
-    </section>
     <br><br>
     <!-- contact -->
     <div class="container">
@@ -206,9 +193,11 @@ if ($tracking_id) {
                 <ul class="progress-indicator custom-complex">
                     <?php if (isset($history_result) && $history_result->num_rows > 0): ?>
                         <?php while ($location = $history_result->fetch_assoc()): ?>
-                            <li name="route_path" details_attr="<?= htmlspecialchars($location['id']) ?>">
+                            <li name="route_path" details_attr="<?= htmlspecialchars($location['id']) ?>"
+                            class="<?= $location['delivered'] == 1 || (isset($parcel['status']) && htmlspecialchars($parcel['status']) == "Delivered") ? 'completed' : '' ?>"
+                            >
                                 <span class="bubble"></span> <?= htmlspecialchars($location['location']) ?>
-                                <span class="bubble"></span> <?= htmlspecialchars($location['delivered']) ?>
+                                <!-- <span class="bubble"></span> <?= htmlspecialchars($location['delivered']) ?> -->
 
                             </li>
                         <?php endwhile; ?>
